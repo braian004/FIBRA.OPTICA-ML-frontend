@@ -1,0 +1,343 @@
+/* =========================================================================
+   1. CONFIGURACIÓN BASE & CONTENEDORES / BASE CONFIGURATION & CONTAINERS
+   ========================================================================= */
+html, body {
+    width: 100%; 
+    height: 100%; 
+    margin: 0; 
+    padding: 0; 
+    overflow: hidden;
+    background-color: #000; 
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+#cesiumContainer, #mapContainer {
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    transition: opacity 0.6s ease-in-out;
+}
+
+#cesiumContainer { opacity: 1; z-index: 2; }
+#mapContainer { opacity: 0; z-index: 1; }
+
+.cesium-viewer-bottom, .cesium-widget-credits { 
+    display: none !important; 
+}
+
+/* =========================================================================
+   2. COMPONENTES HUD GENERALES / GENERAL HUD COMPONENTS
+   ========================================================================= */
+.hud-panel {
+    position: absolute; 
+    z-index: 1000; 
+    background: rgba(10, 16, 26, 0.92); 
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(0, 255, 200, 0.3); 
+    border-radius: 12px; 
+    padding: 18px; 
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.85); 
+    color: #fff;
+}
+
+.control-card { 
+    top: 20px; 
+    right: 20px; 
+    width: 200px; 
+    text-align: center; 
+}
+
+#aiPredictorPanel { 
+    bottom: 20px; 
+    left: 20px; 
+    width: 310px; 
+}
+
+#aiPredictorPanel h3 { 
+    margin: 0 0 12px 0; 
+    font-size: 12px; 
+    color: #00ffc8; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+}
+
+#aiResult { 
+    margin-top: 4px; 
+    font-size: 12px; 
+    border-radius: 6px; 
+}
+
+#coordsStatusBar { 
+    position: absolute; 
+    bottom: 20px; 
+    right: 20px; 
+    padding: 10px 16px; 
+    font-family: monospace; 
+    font-size: 12px; 
+    color: #00ffc8; 
+    letter-spacing: 1px; 
+}
+
+/* =========================================================================
+   3. CARTAS KPI, BARRAS & BOTÓN COPIAR / KPI CARDS, BARS & COPY BUTTON
+   ========================================================================= */
+.kpi-card { 
+    background: rgba(0,0,0,0.4); 
+    padding: 12px; 
+    border-radius: 8px; 
+    border-left: 3px solid #8a99ad; 
+    margin-bottom: 8px; 
+    font-size: 11px; 
+    text-align: left; 
+}
+
+.kpi-card span { 
+    display: block; 
+    font-size: 14px; 
+    color: #fff; 
+    font-weight: bold; 
+    font-family: monospace; 
+    margin-top: 3px;
+}
+
+.progress-bar-container { 
+    background: #16202c; 
+    height: 6px; 
+    border-radius: 4px; 
+    margin-top: 8px; 
+    overflow: hidden; 
+}
+
+.progress-bar-fill { 
+    height: 100%; 
+    width: 0%; 
+    transition: width 0.6s ease-in-out; 
+}
+
+.btn-copiar { 
+    width: 100%; 
+    background: rgba(0, 255, 200, 0.1); 
+    border: 1px dashed #00ffc8; 
+    color: #00ffc8; 
+    padding: 8px; 
+    border-radius: 6px; 
+    font-size: 11px; 
+    font-weight: bold; 
+    cursor: pointer; 
+    margin-top: 4px; 
+    transition: 0.2s; 
+}
+
+.btn-copiar:hover { 
+    background: rgba(0, 255, 200, 0.25); 
+}
+
+/* =========================================================================
+   4. INTERFAZ DE INTERRUPTORES (SWITCHES) / SWITCHES INTERFACE
+   ========================================================================= */
+.switch-container { 
+    position: relative; 
+    display: inline-block; 
+    width: 85px; 
+    height: 34px; 
+    cursor: pointer; 
+    margin-top: 10px; 
+}
+
+.switch-container input { opacity: 0; width: 0; height: 0; }
+
+.switch-slider { 
+    position: absolute; 
+    top: 0; left: 0; right: 0; bottom: 0; 
+    background-color: #16202c; 
+    border: 1px solid rgba(255,255,255,0.1); 
+    border-radius: 34px; 
+    transition: 0.3s; 
+}
+
+.switch-slider:before { 
+    position: absolute; 
+    content: ""; 
+    height: 26px; 
+    width: 26px; 
+    left: 4px; 
+    bottom: 3px; 
+    background-color: #8a99ad; 
+    border-radius: 50%; 
+    transition: 0.3s; 
+}
+
+input:checked + .switch-slider { 
+    background-color: rgba(0, 255, 200, 0.2); 
+    border-color: #00ffc8; 
+}
+
+input:checked + .switch-slider:before { 
+    transform: translateX(49px); 
+    background-color: #00ffc8; 
+    box-shadow: 0 0 14px #00ffc8; 
+}
+
+.status-indicator { font-size: 11px; font-weight: bold; margin-top: 12px; letter-spacing: 1px; }
+.label-on { color: #00ffc8; text-shadow: 0 0 8px #00ffc8; }
+.label-off { color: #ff4a4a; text-shadow: 0 0 8px #ff4a4a; }
+
+/* =========================================================================
+   5. BARRA DE BÚSQUEDA & SUGERENCIAS / SEARCH BAR & SUGGESSIONS
+   ========================================================================= */
+#searchContainer { 
+    top: 20px; 
+    left: 20px; 
+    display: flex; 
+    gap: 8px; 
+    align-items: center;
+}
+
+#searchContainer style {
+    position: relative;
+}
+
+#searchContainer input {
+    width: 260px; 
+    padding: 12px 14px; 
+    background: rgba(5, 8, 13, 0.9); 
+    border: 1px solid rgba(0, 255, 200, 0.4); 
+    border-radius: 6px; 
+    color: #00ffc8; 
+    outline: none; 
+    font-size: 13px;
+}
+
+#searchContainer button {
+    padding: 10px 20px; 
+    background: #00ffc8; 
+    border: none; 
+    border-radius: 6px; 
+    color: #0c1017; 
+    font-weight: bold; 
+    cursor: pointer; 
+    font-size: 12px; 
+    letter-spacing: 1px;
+}
+
+.gps-btn {
+    background: rgba(5, 8, 13, 0.9) !important; 
+    border: 1px solid #00ffc8 !important; 
+    color: #00ffc8 !important; 
+    font-size: 16px !important; 
+    padding: 10px 14px !important; 
+    cursor: pointer; 
+    border-radius: 6px;
+}
+
+.clear-btn {
+    position: absolute;
+    left: 245px; 
+    background: transparent;
+    border: none;
+    color: #8a99ad;
+    font-size: 14px;
+    cursor: pointer;
+    z-index: 1005;
+    padding: 4px;
+    transition: color 0.2s;
+}
+
+.clear-btn:hover {
+    color: #ff4a4a;
+}
+
+.autocomplete-sugerencias {
+    position: absolute;
+    top: 55px;
+    left: 0;
+    width: 260px;
+    background: rgba(10, 16, 26, 0.98);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 255, 200, 0.3);
+    border-radius: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 9999;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+}
+
+.autocomplete-item {
+    padding: 10px 14px;
+    font-size: 12px;
+    color: #cbd5e1;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: background 0.2s;
+}
+
+.autocomplete-item:hover {
+    background: rgba(0, 255, 200, 0.15);
+    color: #00ffc8;
+}
+
+.autocomplete-sugerencias::-webkit-scrollbar {
+    width: 4px;
+}
+
+.autocomplete-sugerencias::-webkit-scrollbar-thumb {
+    background: rgba(0, 255, 200, 0.3);
+    border-radius: 4px;
+}
+
+/* =========================================================================
+   6. COMPONENTES DE MAPA & ANIMACIONES / MAP COMPONENTS & ANIMATIONS
+   ========================================================================= */
+.leaflet-popup-content-wrapper { 
+    background: #0a101a !important; 
+    color: #fff !important; 
+    border: 1px solid #00ffc8 !important; 
+    border-radius: 8px !important; 
+}
+
+.google-maps-pin {
+    filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.5));
+    animation: bouncePin 0.4s ease-out;
+}
+
+.contenedor-olas { position: relative; width: 0; height: 0; }
+
+.ola-anillo { 
+    position: absolute; 
+    top: -90px; 
+    left: -90px; 
+    width: 180px; 
+    height: 180px; 
+    border: 2px solid rgba(255, 74, 74, 0.6); 
+    box-shadow: inset 0 0 20px rgba(235, 9, 9, 0.918), 0 0 20px rgba(255, 74, 74, 0.842); 
+    border-radius: 50%; 
+    opacity: 0; 
+    transform: scale(0); 
+    animation: efectoEcoOlas 3.0s infinite cubic-bezier(0.1, 0.45, 0.55, 1); 
+}
+
+.ola-anillo:nth-child(1) { animation-delay: 0s; }
+.ola-anillo:nth-child(2) { animation-delay: 1.0s; }
+.ola-anillo:nth-child(3) { animation-delay: 2.0s; }
+
+/* Optimización para pausar las ondas dinámicas en mapas lejanos */
+.mapa-lejano .ola-anillo {
+    animation: none !important;
+    display: none !important;
+}
+
+@keyframes bouncePin {
+    0% { transform: translateY(-20px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes efectoEcoOlas { 
+    0% { transform: scale(0.05); opacity: 1; } 
+    50% { opacity: 0.5; } 
+    100% { transform: scale(1.0); opacity: 0; border-width: 1px; } 
+}
