@@ -295,3 +295,23 @@ function toggleVistaManual() {
         });
     }
 }
+
+// =========================================================================
+// 5. INTERFAZ MÓVIL RESPONSIVA / RESPONSIVE MOBILE INTERFACE
+// =========================================================================
+
+/**
+ * Controla la apertura y cierre del contenedor lateral en dispositivos móviles.
+ * Controls the opening and closing of the side container on mobile devices.
+ */
+function toggleMobileMenu() {
+    const wrapper = document.getElementById('hudWrapper');
+    wrapper.classList.toggle('active');
+    
+    const btn = document.getElementById('menuToggle');
+    if (wrapper.classList.contains('active')) {
+        btn.innerText = '✕'; // Cambia el icono a una equis al abrir / Changes icon to an 'X' when open
+    } else {
+        btn.innerText = '☰'; // Cambia el icono a hamburguesa al cerrar / Changes icon to hamburger when closed
+    }
+}

@@ -185,7 +185,7 @@ input:checked + .switch-slider:before {
 .label-off { color: #ff4a4a; text-shadow: 0 0 8px #ff4a4a; }
 
 /* =========================================================================
-   5. BARRA DE BÚSQUEDA & SUGERENCIAS / SEARCH BAR & SUGGESSIONS
+   5. BARRA DE BÚSQUEDA & SUGERENCIAS / SEARCH BAR & SUGGESTIONS
    ========================================================================= */
 #searchContainer { 
     top: 20px; 
@@ -195,16 +195,12 @@ input:checked + .switch-slider:before {
     align-items: center;
 }
 
-#searchContainer style {
-    position: relative;
-}
-
 #searchContainer input {
     width: 260px; 
     padding: 12px 14px; 
     background: rgba(5, 8, 13, 0.9); 
     border: 1px solid rgba(0, 255, 200, 0.4); 
-    border-radius: 6px; 
+    border-radius: 6px; /* Esquinas unificadas */
     color: #00ffc8; 
     outline: none; 
     font-size: 13px;
@@ -214,22 +210,28 @@ input:checked + .switch-slider:before {
     padding: 10px 20px; 
     background: #00ffc8; 
     border: none; 
-    border-radius: 6px; 
+    border-radius: 6px; /* Esquinas unificadas */
     color: #0c1017; 
     font-weight: bold; 
     cursor: pointer; 
     font-size: 12px; 
     letter-spacing: 1px;
+    height: 43px; /* Sincronización de altura */
+    box-sizing: border-box;
 }
 
 .gps-btn {
     background: rgba(5, 8, 13, 0.9) !important; 
     border: 1px solid #00ffc8 !important; 
     color: #00ffc8 !important; 
-    font-size: 16px !important; 
+    font-size: 14px !important; 
     padding: 10px 14px !important; 
     cursor: pointer; 
-    border-radius: 6px;
+    border-radius: 6px; /* Esquinas unificadas */
+    height: 43px; /* Sincronización de altura */
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
 }
 
 .clear-btn {
@@ -293,11 +295,37 @@ input:checked + .switch-slider:before {
 /* =========================================================================
    6. COMPONENTES DE MAPA & ANIMACIONES / MAP COMPONENTS & ANIMATIONS
    ========================================================================= */
+/* MEJORA DEL POP-UP DE LEAFLET NATIVO (Estilo Cyber HUD Dark) */
 .leaflet-popup-content-wrapper { 
-    background: #0a101a !important; 
+    background: rgba(10, 16, 26, 0.95) !important; 
+    backdrop-filter: blur(10px) !important;
     color: #fff !important; 
     border: 1px solid #00ffc8 !important; 
-    border-radius: 8px !important; 
+    border-radius: 12px !important; /* Esquinas redondeadas añadidas */
+    box-shadow: 0 8px 30px rgba(0,0,0,0.8) !important;
+    padding: 4px !important;
+}
+
+.leaflet-popup-content {
+    font-family: 'Segoe UI', system-ui, sans-serif !important;
+    font-size: 12px !important;
+    margin: 12px 14px !important;
+    line-height: 1.5 !important;
+}
+
+.leaflet-popup-tip {
+    background: rgba(10, 16, 26, 0.95) !important;
+    border-left: 1px solid #00ffc8 !important;
+    border-bottom: 1px solid #00ffc8 !important;
+}
+
+.leaflet-popup-close-button {
+    color: #8a99ad !important;
+    padding: 6px !important;
+}
+
+.leaflet-popup-close-button:hover {
+    color: #ff4a4a !important;
 }
 
 .google-maps-pin {
@@ -325,7 +353,6 @@ input:checked + .switch-slider:before {
 .ola-anillo:nth-child(2) { animation-delay: 1.0s; }
 .ola-anillo:nth-child(3) { animation-delay: 2.0s; }
 
-/* Optimización para pausar las ondas dinámicas en mapas lejanos */
 .mapa-lejano .ola-anillo {
     animation: none !important;
     display: none !important;
@@ -340,4 +367,233 @@ input:checked + .switch-slider:before {
     0% { transform: scale(0.05); opacity: 1; } 
     50% { opacity: 0.5; } 
     100% { transform: scale(1.0); opacity: 0; border-width: 1px; } 
+}
+
+/* =========================================================================
+   7. OPTIMIZACIÓN RESPONSIVA (MÓVIL) - ULTRA-COMPACTA FLOTANTE V4
+   ========================================================================= */
+#menuToggle {
+    display: none;
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 2500;
+    background: #00ffc8;
+    color: #0c1017;
+    border: none;
+    padding: 12px 16px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 255, 200, 0.4);
+}
+
+@media (max-width: 768px) {
+    #hudWrapper {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        z-index: 2000 !important;
+        pointer-events: none !important; 
+        display: block !important;
+        box-sizing: border-box !important;
+        background: transparent !important;
+        backdrop-filter: none !important;
+        border: none !important;
+    }
+
+    .hud-panel {
+        pointer-events: auto !important;
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.8) !important;
+        background: rgba(10, 16, 26, 0.95) !important; 
+        backdrop-filter: blur(14px) !important;
+        border: 1px solid rgba(0, 255, 200, 0.25) !important;
+    }
+
+    #menuToggle {
+        display: flex !important;
+        position: fixed !important;
+        top: 14px !important;
+        right: 14px !important;
+        z-index: 2500 !important;
+        width: 38px !important;
+        height: 38px !important;
+        padding: 0 !important;
+        font-size: 18px !important;
+        background: rgba(12, 20, 31, 0.9) !important;
+        color: #00ffc8 !important;
+        border: 1px solid rgba(0, 255, 200, 0.4) !important;
+        border-radius: 50% !important; 
+        align-items: center !important;
+        justify-content: center !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important;
+        cursor: pointer !important;
+    }
+
+    /* A. BARRA DE BÚSQUEDA FLOTANTE MÓVIL */
+    #searchContainer { 
+        position: absolute !important;
+        top: 14px !important; 
+        left: 14px !important; 
+        right: auto !important;
+        width: calc(100% - 80px) !important; 
+        padding: 6px 10px !important; 
+        display: flex !important; 
+        flex-direction: row !important; 
+        gap: 6px !important; 
+        border-radius: 30px !important; 
+        box-sizing: border-box !important;
+    }
+
+    #searchContainer input {
+        flex: 1 !important;
+        width: 100% !important;
+        padding: 6px 12px !important;
+        font-size: 11px !important;
+        background: rgba(5, 9, 15, 0.7) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        color: #fff !important;
+        border-radius: 20px !important;
+        height: 32px !important;
+    }
+
+    #searchContainer button {
+        padding: 0 12px !important;
+        font-size: 10px !important;
+        background: #00ffc8 !important;
+        color: #060a10 !important;
+        border-radius: 20px !important;
+        height: 32px !important;
+        white-space: nowrap !important;
+        font-weight: bold !important;
+    }
+
+    .gps-btn {
+        padding: 0 10px !important;
+        font-size: 11px !important;
+        border-radius: 20px !important;
+        height: 32px !important;
+    }
+
+    .autocomplete-sugerencias {
+        top: 42px !important;
+        width: calc(100% - 20px) !important;
+        left: 10px !important;
+        max-height: 140px !important;
+        background: rgba(8, 14, 23, 0.98) !important;
+    }
+
+    /* B. PANEL DE CONTROL DE RADAR & 2D (OCULTO POR DEFECTO EN MÓVIL) */
+    .control-card {
+        position: absolute !important;
+        top: 66px !important;
+        right: 14px !important;
+        left: auto !important;
+        width: 80px !important;
+        padding: 10px 4px !important;
+        border-radius: 12px !important;
+        box-sizing: border-box !important;
+        opacity: 0 !important;
+        transform: translateY(-20px) scale(0.8) !important;
+        pointer-events: none !important;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    }
+
+    #hudWrapper.active .control-card {
+        opacity: 1 !important;
+        transform: translateY(0) scale(1) !important;
+        pointer-events: auto !important;
+    }
+
+    .control-card div[style*="font-size"] {
+        font-size: 8px !important;
+        letter-spacing: 0px !important;
+        color: #8a99ad !important;
+        text-align: center !important;
+    }
+
+    .switch-container {
+        width: 54px !important;
+        height: 22px !important;
+        margin: 4px auto 0 auto !important;
+        display: block !important;
+    }
+
+    .switch-slider:before {
+        height: 16px !important;
+        width: 16px !important;
+        left: 3px !important;
+        bottom: 3px !important;
+    }
+
+    input:checked + .switch-slider:before {
+        transform: translateX(30px) !important;
+    }
+
+    .status-indicator {
+        font-size: 7.5px !important;
+        margin-top: 4px !important;
+        text-align: center !important;
+        letter-spacing: 0px !important;
+    }
+
+    /* C. CONSOLA GEOGRÁFICA IA (SIN BARRA DESPLEGABLE BLANCA) */
+    #aiPredictorPanel {
+        position: absolute !important;
+        bottom: 32px !important; 
+        left: 14px !important;
+        right: 14px !important;
+        width: calc(100% - 28px) !important;
+        max-height: 195px !important; 
+        overflow-y: auto !important;   
+        padding: 12px !important;
+        border-radius: 14px !important;
+        border-bottom: 2px solid #00ffc8 !important;
+        box-sizing: border-box !important;
+        scrollbar-width: none !important; 
+        -ms-overflow-style: none !important;  
+    }
+
+    #aiPredictorPanel::-webkit-scrollbar {
+        display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+    }
+
+    #aiPredictorPanel h3 {
+        font-size: 11px !important;
+        margin: 0 0 8px 0 !important;
+        text-align: center !important;
+        color: #00ffc8 !important;
+    }
+
+    .kpi-card {
+        background: rgba(5, 9, 15, 0.6) !important;
+        border: 1px solid rgba(255,255,255,0.05) !important;
+        padding: 6px 10px !important;
+        margin-bottom: 5px !important;
+    }
+
+    /* D. BARRA DE COORDENADAS INFERIOR */
+    #coordsStatusBar {
+        position: absolute !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        text-align: center !important;
+        background: #05090f !important;
+        border: none !important;
+        border-top: 1px solid rgba(0, 255, 200, 0.15) !important;
+        padding: 4px 0 !important;
+        font-size: 9px !important;
+        border-radius: 0 !important;
+        color: #8a99ad !important;
+        box-sizing: border-box !important;
+    }
 }

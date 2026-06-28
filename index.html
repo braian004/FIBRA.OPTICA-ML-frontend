@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>AI Fiber Radar - Consola UX Unificada V3</title>
     
     <script src="https://cesium.com/downloads/cesiumjs/releases/1.105/Build/Cesium/Cesium.js"></script>
@@ -15,37 +16,43 @@
 </head>
 <body>
 
-    <div id="searchContainer" class="hud-panel">
-        <input type="text" id="locationInput" placeholder="Busca una localidad (Salta, Cafayate...)" autocomplete="off">
-        <button id="searchBtn" onclick="ejecutarVueloPlaneta3D()">BUSCAR</button>
-        <button class="gps-btn" onclick="obtenerUbicacionActualGPS()" title="Ubicar mi posición actual">Ubicacion actual</button>
-    </div>
+    <button id="menuToggle" onclick="toggleMobileMenu()">☰</button>
 
-    <div class="control-card hud-panel">
-        <div style="font-size: 11px; font-weight: bold; color: #8a99ad;">RADAR POWER</div>
-        <label class="switch-container">
-            <input type="checkbox" id="radarToggle" onchange="toggleRadarEngine()">
-            <span class="switch-slider"></span>
-        </label>
-        <div id="radarStatusText" class="status-indicator label-off">RADAR OFFLINE</div>
+    <div id="hudWrapper">    
+        
+        <div id="searchContainer" class="hud-panel">
+            <input type="text" id="locationInput" placeholder="Busca una localidad (Salta, Cafayate...)" autocomplete="off">
+            <button id="searchBtn" onclick="ejecutarVueloPlaneta3D()">BUSCAR</button>
+            <button class="gps-btn" onclick="obtenerUbicacionActualGPS()" title="Ubicar mi posición actual">GPS</button>
+        </div>
 
-        <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 12px 0;">
+        <div class="control-card hud-panel">
+            <div style="font-size: 11px; font-weight: bold; color: #8a99ad;">RADAR POWER</div>
+            <label class="switch-container">
+                <input type="checkbox" id="radarToggle" onchange="toggleRadarEngine()">
+                <span class="switch-slider"></span>
+            </label>
+            <div id="radarStatusText" class="status-indicator label-off">RADAR OFFLINE</div>
 
-        <div style="font-size: 11px; font-weight: bold; color: #8a99ad;">VISTA MAPA 2D</div>
-        <label class="switch-container">
-            <input type="checkbox" id="vistaToggle" onchange="toggleVistaManual()">
-            <span class="switch-slider"></span>
-        </label>
-        <div id="vistaStatusText" class="status-indicator label-off">CESIUM 3D ACTIVE</div>
-    </div>
+            <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 12px 0;">
 
-    <div id="aiPredictorPanel" class="hud-panel">
-        <h3>CONSOLA GEOGRÁFICA IA</h3>
-        <div id="aiResult" style="color: #8a99ad;">Active el RADAR POWER para iniciar el escaneo...</div>
-    </div>
+            <div style="font-size: 11px; font-weight: bold; color: #8a99ad;">VISTA MAPA 2D</div>
+            <label class="switch-container">
+                <input type="checkbox" id="vistaToggle" onchange="toggleVistaManual()">
+                <span class="switch-slider"></span>
+            </label>
+            <div id="vistaStatusText" class="status-indicator label-off">CESIUM 3D ACTIVE</div>
+        </div>
 
-    <div id="coordsStatusBar" class="hud-panel">
-        LAT: <span id="hudLat">-24.7850</span> | LON: <span id="hudLon">-65.4120</span>
+        <div id="aiPredictorPanel" class="hud-panel">
+            <h3>CONSOLA GEOGRÁFICA IA</h3>
+            <div id="aiResult" style="color: #8a99ad;">Active el RADAR POWER para iniciar el escaneo...</div>
+        </div>
+
+        <div id="coordsStatusBar" class="hud-panel">
+            LAT: <span id="hudLat">-24.7850</span> | LON: <span id="hudLon">-65.4120</span>
+        </div>
+
     </div>
 
     <div id="cesiumContainer"></div>
@@ -54,7 +61,5 @@
     <script src="js/main.js"></script>
     <script src="js/map.js"></script>
     <script src="js/radar.js"></script>
-    <script src="js/ui.js"></script>
-
-</body>
+    <script src="js/ui.js"></script> </body>
 </html>
