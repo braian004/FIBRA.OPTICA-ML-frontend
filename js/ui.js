@@ -315,3 +315,35 @@ function toggleMobileMenu() {
         btn.innerText = '☰'; // Cambia el icono a hamburguesa al cerrar / Changes icon to hamburger when closed
     }
 }
+// Control de gestos táctiles para la Consola IA en celulares
+// Touch gesture control for the AI Console on mobile phones
+const panelIA = document.getElementById('aiPredictorPanel');
+const contenidoMobile = document.getElementById('panelContentMobile');
+
+let toqueInicialY = 0;
+let toqueFinalY = 0;
+
+panelIA.addEventListener('touchstart', function(e) {
+    toqueInicialY = e.changedTouches[0].screenY;
+}, false);
+
+panelIA.addEventListener('touchend', function(e) {
+    toqueFinalY = e.changedTouches[0].screenY;
+    procesarGestoDesplazamiento();
+}, false);
+
+function procesarGestoDesplazamiento() {
+    const distanciaSensibilidad = 30; // Píxeles mínimos para activar el movimiento
+    
+    // Deslizar hacia ARRIBA -> Desplegar / Mostrar
+    // Swipe UP -> Expand / Show
+    if (toqueInicialY - toqueFinalY > distanciaSensibilidad) {
+        contenidoMobile.classList.remove('guardado');
+    }
+    
+    // Deslizar hacia ABAJO -> Guardar / Ocultar
+    // Swipe DOWN -> Collapse / Hide
+    if (toqueFinalY - toqueInicialY > distanciaSensibilidad) {
+        contenidoMobile.classList.add('guardado');
+    }
+}

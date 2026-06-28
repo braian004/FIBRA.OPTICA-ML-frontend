@@ -406,6 +406,21 @@ input:checked + .switch-slider:before {
         backdrop-filter: none !important;
         border: none !important;
     }
+    #panelContentMobile {
+        max-height: 200px; /* Altura máxima en móvil desplegado */
+        overflow: hidden;
+        transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out;
+        opacity: 1;
+    }
+
+    /* Clase que se aplicará al deslizar hacia abajo para ocultar */
+    /* Class that will be applied when swiping down to hide */
+    #panelContentMobile.guardado {
+        max-height: 0px !important;
+        opacity: 0;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
 
     .hud-panel {
         pointer-events: auto !important;
