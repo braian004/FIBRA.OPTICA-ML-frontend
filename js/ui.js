@@ -284,7 +284,7 @@ function toggleVistaManual() {
         
         // 2. Calcular la altura de la cámara en base al nivel de zoom actual de Leaflet
         const nivelZoom = map.getZoom();
-        const alturaCalculada = Math.max(1200.0, 40000000.0 / Math.pow(2, nivelZoom));
+        const alturaCalculada = Math.max(1200.0, 4000000.0 / Math.pow(2, nivelZoom));
         
         // 3. Sincronizar y activar el globo 3D en la misma coordenada
         actualizarMonitorHUD();
