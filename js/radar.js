@@ -196,7 +196,7 @@ function descargarReportePDF(datos) {
     doc.setTextColor(0, 255, 200); // Tono Cyber/Neon del HUD original
     doc.setFont("helvetica", "bold");
     doc.setFontSize(22);
-    doc.text("Predicción de Conectividad de Fibra Óptica de Argentina", 15, 25);
+    doc.text("Reporte IA Fibra Óptica", 15, 25);
 
     // Metadata de Fecha
     doc.setTextColor(255, 255, 255);
