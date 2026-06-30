@@ -1,6 +1,7 @@
+window.historialEscaneos = [];
 // Variable global para almacenar temporalmente los datos del último escaneo exitoso
 let ultimoResultadoEscaneo = null;
-
+// Cambiar el almacenamiento simple por un arreglo histórico
 // =========================================================================
 // CARGA Y PROCESAMIENTO DE NODOS / NODE LOADING AND PROCESSING
 // =========================================================================
@@ -195,7 +196,7 @@ function descargarReportePDF(datos) {
     doc.setTextColor(0, 255, 200); // Tono Cyber/Neon del HUD original
     doc.setFont("helvetica", "bold");
     doc.setFontSize(22);
-    doc.text("AI FIBER RADAR REPORT", 15, 25);
+    doc.text("Predicción de Conectividad de Fibra Óptica de Argentina", 15, 25);
 
     // Metadata de Fecha
     doc.setTextColor(255, 255, 255);
